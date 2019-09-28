@@ -1,31 +1,34 @@
 {
-  "name": "react-electron-example",
+  "name": "react-electron",
+  "description": "CRA & Electron",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "cross-env": "5.1.6",
+    "electron-is-dev": "0.3.0",
+    "electron-log": "^2.2.6",
     "react": "^16.10.0",
     "react-dom": "^16.10.0",
-    "react-scripts": "3.1.2"
+    "update-electron-app": "^1.2.0"
   },
+  "devDependencies": {
+    "concurrently": "3.5.1",
+    "electron": "2.0.2",
+    "electron-builder": "^20.44.4",
+    "prettier": "^1.4.4",
+    "react-scripts": "3.1.2",
+    "wait-on": "2.1.0"
+  },
+  "main": "public/electron.js",
+  "homepage": "./",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "react-start": "react-scripts start",
+    "react-build": "react-scripts build",
+    "react-test": "react-scripts test --env=jsdom",
+    "react-eject": "react-scripts eject",
+    "electron-build": "electron-builder",
+    "release": "yarn react-build && electron-builder --publish=always",
+    "build": "yarn react-build && yarn electron-build",
+    "start": "concurrently \"cross-env BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron .\""
   }
 }
